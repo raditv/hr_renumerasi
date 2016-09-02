@@ -57,6 +57,16 @@
              </field>
         </record>
         <!-- hr. layanan -->
+        <record id="view_layanan_filter" model="ir.ui.view">
+            <field name="name">Layanan</field>
+            <field name="model">hr.department.layanan</field>
+            <field name="arch" type="xml">
+                <search string="Layanan">
+                    <field name="name" string="Layanan" filter_domain="[('name','ilike',self)]"/>
+                    <field name="department_id"/>
+                </search>
+            </field>
+         </record>
         <record model="ir.actions.act_window" id="act_layanan_from_department">
             <field name="name">Layanan</field>
             <field name="res_model">hr.department.layanan</field>
@@ -97,16 +107,6 @@
                 </tree>
             </field>
         </record>
-        <record id="view_layanan_filter" model="ir.ui.view">
-            <field name="name">Layanan</field>
-            <field name="model">hr.department.layanan</field>
-            <field name="arch" type="xml">
-                <search string="Layanan">
-                    <field name="name" string="Layanan" filter_domain="[('name','ilike',self)]"/>
-                    <field name="department_id"/>
-                </search>
-            </field>
-         </record>
         <!-- hr.golongan -->
         <record model="ir.actions.act_window" id="act_employee_from_golongan">
             <field name="name">Employees</field>
