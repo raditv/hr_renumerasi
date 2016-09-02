@@ -1,0 +1,251 @@
+<openerp>
+    <data>
+        <!-- hr.department inherited -->
+        <record id="view_department_form_inherited" model="ir.ui.view">
+            <field name="name">hr.department.form.inherited</field>
+            <field name="model">hr.department</field>
+            <field name="inherit_id" ref="hr.view_department_form" />
+            <field name="arch" type="xml">
+                <group col="4" position="after">
+                    <notebook>
+                        <page string="Layanan dalam unit">
+                            <field name="layanan_ids">
+                                <tree string="Nama Layanan">
+                                    <field name="name" />
+                                    <field name="potongan" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </group>
+            </field>
+        </record>
+        <!-- hr.employee inherited -->
+        <record id="view_employee_form_inherited" model="ir.ui.view">
+            <field name="name">hr.employee.form.inherited</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form" />
+            <field name="arch" type="xml">
+                <field name="department_id" position="after">
+                    <field name="employee_number" />
+                    <field name="golongan_id" />
+                </field>
+                <field name="parent_id" position="after">
+                    <field name="tanggal_masuk" />
+                </field>
+                <field name="coach_id" position="replace">
+                    <field name="coach_id" invisible="True" />
+                </field>
+                <group name="active_group" position="after">
+                    <group string='Informasi Lain'>
+                        <field name="lama_bekerja" />
+                        <field name="pendidikan_id" />
+                        <field name="gaji_pokok" />
+                    </group>
+                </group>
+            </field>
+        </record>
+        <record id="view_employee_filter_inherited" model="ir.ui.view">
+            <field name="name">Employees Inherited</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_filter" />
+            <field name="arch" type="xml">
+                <field name="department_id" position="after">
+                    <field name="golongan_id" />
+                    <field name="pendidikan_id" />
+                </field>
+             </field>
+        </record>
+        <!-- hr. layanan -->
+        <record model="ir.actions.act_window" id="act_layanan_from_department">
+            <field name="name">Layanan</field>
+            <field name="res_model">hr.department.layanan</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_layanan_filter"/>
+            <field name="context">{
+                "search_default_department_id": [active_id],
+                "default_department_id": active_id}
+            </field>
+        </record>
+        <record id="view_layanan_form" model="ir.ui.view">
+            <field name="name">hr.department.layanan.form</field>
+            <field name="model">hr.department.layanan</field>
+            <field name="arch" type="xml">
+                <form string="Layanan">
+                    <sheet>
+                        <group col="4">
+                            <field name="name"/>
+                            <field name="potongan"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="view_layanan_tree" model="ir.ui.view">
+            <field name="name">hr.department.layanan.tree</field>
+            <field name="model">hr.department.layanan</field>
+            <field name="arch" type="xml">
+                <tree string="Layanan">
+                    <field name="department_id"/>
+                    <field name="name"/>
+                    <field name="potongan"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_layanan_filter" model="ir.ui.view">
+            <field name="name">Layanan</field>
+            <field name="model">hr.department.layanan</field>
+            <field name="arch" type="xml">
+                <search string="Layanan">
+                    <field name="name" string="Layanan" filter_domain="[('name','ilike',self)]"/>
+                    <field name="department_id"/>
+                </search>
+            </field>
+         </record>
+        <!-- hr.golongan -->
+        <record model="ir.actions.act_window" id="act_employee_from_golongan">
+            <field name="name">Employees</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,form,tree</field>
+            <field name="search_view_id" ref="view_employee_filter_inherited"/>
+            <field name="context">{
+                "search_default_golongan_id": [active_id],
+                "default_golongan_id": active_id}
+            </field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add a new employee.
+              </p><p>
+                With just a quick glance on the Odoo employee screen, you
+                can easily find all the information you need for each person;
+                contact data, job position, availability, etc.
+              </p>
+            </field>
+        </record>
+        <record id="view_golongan_form" model="ir.ui.view">
+            <field name="name">hr.golongan.form</field>
+            <field name="model">hr.golongan</field>
+            <field name="arch" type="xml">
+                <form string="Golongan">
+                    <sheet>
+                        <group col="4">
+                            <field name="name"/>
+                            <field name="skor"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="view_golongan_tree" model="ir.ui.view">
+            <field name="name">hr.golongan.tree</field>
+            <field name="model">hr.golongan</field>
+            <field name="arch" type="xml">
+                <tree string="Golongan">
+                    <field name="name"/>
+                    <field name="skor"/>
+                </tree>
+            </field>
+        </record>
+        <record id="open_module_tree_golongan" model="ir.actions.act_window">
+            <field name="name">Golongan</field>
+            <field name="res_model">hr.golongan</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,form,tree</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Klik untuk menambah golongan.
+              </p><p>
+                Sturktur golongan adalah untuk lorem ipsum
+                bla bla dolor ipsum dan lain bla bla bla,
+                hmmmm bla bla bla.
+              </p>
+            </field>
+        </record>
+        <menuitem
+            action="open_module_tree_golongan"
+            id="menu_hr_golongan_tree"
+            parent="hr.menu_hr_root"
+            sequence="2"
+            groups="base.group_hr_user"/>
+        <!-- hr.pendidikan -->
+        <record model="ir.actions.act_window" id="act_employee_from_pendidikan">
+            <field name="name">Employees</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,form,tree</field>
+            <field name="search_view_id" ref="view_employee_filter_inherited"/>
+            <field name="context">{
+                "search_default_pendidikan_id": [active_id],
+                "default_pendidikan_id": active_id}
+            </field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add a new employee.
+              </p><p>
+                With just a quick glance on the Odoo employee screen, you
+                can easily find all the information you need for each person;
+                contact data, job position, availability, etc.
+              </p>
+            </field>
+        </record>
+        <record id="view_pendidikan_form" model="ir.ui.view">
+            <field name="name">hr.pendidikan.form</field>
+            <field name="model">hr.pendidikan</field>
+            <field name="arch" type="xml">
+                <form string="Pendidikan">
+                    <sheet>
+                        <group col="4">
+                            <field name="name"/>
+                            <field name="skor"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="view_pendidikan_tree" model="ir.ui.view">
+            <field name="name">hr.pendidikan.tree</field>
+            <field name="model">hr.pendidikan</field>
+            <field name="arch" type="xml">
+                <tree string="Pendidikan">
+                    <field name="name"/>
+                    <field name="skor"/>
+                </tree>
+            </field>
+        </record>
+        <record id="open_module_tree_pendidikan" model="ir.actions.act_window">
+            <field name="name">Pendidikan</field>
+            <field name="res_model">hr.pendidikan</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,form,tree</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Klik untuk menambah pendidikan.
+              </p><p>
+                Sturktur pendidikan adalah untuk lorem ipsum
+                bla bla dolor ipsum dan lain bla bla bla,
+                hmmmm bla bla bla.
+              </p>
+            </field>
+        </record>
+        <menuitem
+            action="open_module_tree_pendidikan"
+            id="menu_hr_pendidikan_tree"
+            parent="hr.menu_hr_root"
+            sequence="2"
+            groups="base.group_hr_user"/>
+    </data>
+</openerp>

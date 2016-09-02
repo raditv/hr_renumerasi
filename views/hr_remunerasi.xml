@@ -1,0 +1,10 @@
+<openerp>
+    <data>
+        <menuitem id="menu_human_resources_remuneration" name="Remunerasi" sequence="100" />
+        <menuitem action="hr.open_module_tree_department" 
+                  id="menu_human_resources_remuneration_pelayanan"
+                  parent="menu_human_resources_remuneration" 
+                  sequence="90" 
+                  groups="base.group_configuration,base.group_hr_user"/>
+    </data>
+</openerp>

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_golongan_user,hr.golongan.user,model_hr_golongan,base.group_hr_user,1,1,1,1
+access_hr_pendidikan_user,hr.pendidikan.user,model_hr_pendidikan,base.group_hr_user,1,1,1,1
+access_hr_department_layanan_user,hr.department_layanan.user,model_hr_department_layanan,base.group_hr_user,1,1,1,1
