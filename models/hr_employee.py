@@ -50,6 +50,7 @@ class hr_pendidikan(models.Model):
 	member_ids = fields.One2many('hr.employee','pendidikan_id', 'Members', readonly=True)
 	color = fields.Integer('Color Index')
 	skor = fields.Integer('Skor')
+	keterangan = fields.Html('Keterangan')
 
 class hr_department_layanan(models.Model):
 	_name = 'hr.department.layanan'

@@ -176,7 +176,7 @@
             id="menu_hr_golongan_tree"
             parent="hr.menu_hr_root"
             sequence="2"
-            groups="base.group_hr_user"/>
+            groups="base.group_user"/>
         <!-- hr.pendidikan -->
         <record model="ir.actions.act_window" id="act_employee_from_pendidikan">
             <field name="name">Employees</field>
@@ -207,6 +207,7 @@
                         <group col="4">
                             <field name="name"/>
                             <field name="skor"/>
+                            <field name="keterangan"/>
                         </group>
                     </sheet>
                     <div class="oe_chatter">
@@ -246,6 +247,6 @@
             id="menu_hr_pendidikan_tree"
             parent="hr.menu_hr_root"
             sequence="2"
-            groups="base.group_hr_user"/>
+            groups="base.group_user"/>
     </data>
 </openerp>
